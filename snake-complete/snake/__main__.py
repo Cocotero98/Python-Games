@@ -15,7 +15,7 @@ from game.services.video_service import VideoService
 from game.shared.color import Color
 from game.shared.point import Point
 from game.scripting.grow import Grow
-
+from game.casting.score2 import Score2
 
 def main():
     
@@ -24,6 +24,7 @@ def main():
     cast.add_actor("snakes", Snake())
     cast.add_actor("scores", Score())
     cast.add_actor("player2", Player2())
+    cast.add_actor('score2', Score2())
    
     # start the game
     keyboard_service = KeyboardService()
