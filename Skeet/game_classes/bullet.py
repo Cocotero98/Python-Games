@@ -13,7 +13,7 @@ class Bullet(FlyingObject):
 
 
     def draw(self):
-        arcade.draw_circle_filled(self.center.get_x(),self.center.get_y(),constants.BULLET_RADIUS,constants.BULLET_COLOR)
+        arcade.draw_circle_filled(self.center.get_x(),self.center.get_y(),self.radius,constants.BULLET_COLOR)
 
     def fire(self,angle):
         dx = math.cos(math.radians(angle)) * self._speed
