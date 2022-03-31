@@ -26,7 +26,6 @@ DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
 WHITE = Color(255, 255, 255)
 DEFAULT_ARTIFACTS = 40
 
-
 def main():
     
     # create the cast
@@ -60,7 +59,6 @@ def main():
     for n in range(DEFAULT_ARTIFACTS):
         text = chr(random.randint(33, 126))
         message = messages[n]
-
         x = random.randint(1, COLS - 1)
         y = random.randint(1, ROWS - 1)
         position = Point(x, y)
@@ -84,7 +82,6 @@ def main():
     video_service = VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
     director = Director(keyboard_service, video_service)
     director.start_game(cast)
-
 
 if __name__ == "__main__":
     main()
