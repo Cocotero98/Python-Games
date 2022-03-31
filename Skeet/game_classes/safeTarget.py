@@ -9,4 +9,4 @@ class SafeTarget(Target):
         self.points=-10
 
     def draw(self):
-        arcade.draw_rectangle_filled(0,self.y,20,20,constants.TARGET_SAFE_COLOR,0)
+        arcade.draw_rectangle_filled(self.center.get_x(),self.center.get_y(),40,40,constants.TARGET_SAFE_COLOR)

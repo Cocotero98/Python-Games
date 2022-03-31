@@ -7,17 +7,16 @@ class FlyingObject:
 
     def __init__(self):
         self.center=Point(0,0)
+        self.x=self.center.get_x()
+        self.y=self.center.get_y()
         self.velocity= Point(0,0)
-        self.radius= 3
         self.alive=True
         pass
 
     def advance(self):
-        # print(self.center.get_x(),self.center.get_y())
         x = (self.center.get_x() + self.velocity.get_x())
         y = (self.center.get_y() + self.velocity.get_y())
         self.center = Point(x, y)
-        # print(x,y)
         pass
 
     def draw(self) : None

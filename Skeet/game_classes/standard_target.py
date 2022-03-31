@@ -8,5 +8,5 @@ class StandardTarget(Target):
         
 
     def draw(self):
-        arcade.draw_circle_filled(0,self.y,constants.TARGET_RADIUS,constants.TARGET_COLOR)
+        arcade.draw_circle_filled(self.center.get_x(),self.center.get_y(),constants.TARGET_RADIUS,constants.TARGET_COLOR)
 
