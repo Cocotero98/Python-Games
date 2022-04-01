@@ -13,26 +13,8 @@ from game_classes.bullet import Bullet
 from game_classes.safeTarget import SafeTarget
 from game_classes.standard_target import StandardTarget
 from game_classes.strong_target import StrongTarget
+from game_classes.Target import Target
 import constants
-
-# # These are Global constants to use throughout the game
-# SCREEN_WIDTH = 600
-# SCREEN_HEIGHT = 500
-
-# RIFLE_WIDTH = 100
-# RIFLE_HEIGHT = 20
-# RIFLE_COLOR = arcade.color.DARK_RED
-
-# BULLET_RADIUS = 3
-# BULLET_COLOR = arcade.color.BLACK_OLIVE
-# BULLET_SPEED = 10
-
-# TARGET_RADIUS = 20
-# TARGET_COLOR = arcade.color.CARROT_ORANGE
-# TARGET_SAFE_COLOR = arcade.color.AIR_FORCE_BLUE
-# TARGET_SAFE_RADIUS = 15
-
-
 
 
 class Rifle:
@@ -78,6 +60,7 @@ class Game(arcade.Window):
 
         self.rifle = Rifle()
         self.score = 0
+        self.message='---'
 
         self.bullets = []
 
@@ -106,6 +89,7 @@ class Game(arcade.Window):
             target.draw()
 
         self.draw_score()
+        self.draw_message()
 
     def draw_score(self):
         """
@@ -114,7 +98,25 @@ class Game(arcade.Window):
         score_text = "Score: {}".format(self.score)
         start_x = 10
         start_y = constants.SCREEN_HEIGHT - 20
-        arcade.draw_text(score_text, start_x=start_x, start_y=start_y, font_size=12, color=arcade.color.NAVY_BLUE)
+        if self.score<0:
+            color=arcade.color.RED
+        else:
+            color=arcade.color.NAVY_BLUE
+        arcade.draw_text(score_text, start_x=start_x, start_y=start_y, font_size=12, color=color)
+
+    def draw_message(self):
+        '''
+        Display a message according to the target hit
+        '''
+        
+        message=self.message
+        start_x=constants.SCREEN_WIDTH/2-len(message)*8/2
+        start_y=50
+        if len(message)<=11:
+            color=arcade.color.RED
+        else:
+            color=arcade.color.NAVY_BLUE
+        arcade.draw_text(message, start_x=start_x, start_y=start_y, font_size=12, color=color)
 
     def update(self, delta_time):
         """
@@ -173,6 +175,7 @@ class Game(arcade.Window):
                         # its a hit!
                         bullet.alive = False
                         self.score += target.hit()
+                        self.message=target.show_message()
 
                         # We will wait to remove the dead objects until after we
                         # finish going through the list
@@ -202,12 +205,10 @@ class Game(arcade.Window):
         for bullet in self.bullets:
             if bullet.is_off_screen(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT):
                 self.bullets.remove(bullet)
-                print('removed')
 
         for target in self.targets:
             if target.is_off_screen(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT):
                 self.targets.remove(target)
-                print('target removed')
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
         # set the rifle angle in degrees
