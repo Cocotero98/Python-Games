@@ -22,8 +22,9 @@ class Director:
         self.points = 300
         self.cards=[]
         self.is_playing = True
-        self.current= self.card()
+        self.current= Hilo().card()
         self.total_score = 0
+        self.correct = True
 
         for i in range(1,14):
             self.cards.append(i)
@@ -62,14 +63,14 @@ class Director:
 
     
     def guess(self):
-        self.nextcard=self.card()
+        self.nextcard=Hilo().card()
         self.hl=input('Higher or lower?(h/l) ')
         if self.current<self.nextcard and self.hl=='h':
-            correct='addpoints'
+            self.correct = True
         elif self.current>self.nextcard and self.hl=='l':
-            correct='addpoints'
+            self.correct = True
         else:
-            incorrect='menos'
+            self.correct = False
         
        
     def do_updates(self):
@@ -78,11 +79,13 @@ class Director:
         Args:
             self (Director): An instance of Director.
         """
+        if self.correct:
+            self.points+=10
+        else:
+            self.points-=10
 
 
         
-
-
     def do_outputs(self):
         """Displays the dice and the score. Also asks the player if they want to roll again. 
 
@@ -92,11 +95,8 @@ class Director:
         if not self.is_playing:
             return
         
-        values = ""
-        for i in range(len(self.dice)):
-            die = self.dice[i]
-            values += f"{die.value} "
-
-        print(f"You rolled: {values}")
-        print(f"Your score is: {self.total_score}\n")
-        self.is_playing == (self.score > 0)
+        if self.correct:
+            print(f'You guessed! The card was {self.current}')
+        else:
+            print('Try again!')
+        print(f'Score: {self.points}')

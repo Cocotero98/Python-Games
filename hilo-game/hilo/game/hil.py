@@ -1,6 +1,5 @@
 import imp
 import random
-from game.director import Director
 
 # TODO: Implement the Die class as follows...
 
@@ -44,4 +43,5 @@ class Hilo:
             self (Die): An instance of Die.
         """
         self.value=random.randrange(1,14)
+        return self.value
 
